@@ -34,7 +34,7 @@ class SearchResultList extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="search-result-list">
                 <h4> Search result for {this.props.search.searchTerms.artistName}
                     <button
                         className = "btn btn-link"
