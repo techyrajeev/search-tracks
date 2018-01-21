@@ -72,7 +72,7 @@ export default class SearchPage extends React.Component {
                         :(
                             <div className="row">
                                 <div className="col-md-8 col-md-offset-2">
-                                    <SearchResultList resetSearch={this.props.resetSearch}/>
+                                    <SearchResultList resetSearch={this.resetSearch}/>
                                 </div>
                             </div>
                         )

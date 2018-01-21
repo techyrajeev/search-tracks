@@ -28,8 +28,8 @@ class SearchResultList extends React.Component {
 
     onClear = (e) => {
         e.preventDefault();
-        this.props.clearSearch();
         this.props.resetSearch();
+        this.props.clearSearch();
     }
 
     render() {
@@ -53,7 +53,7 @@ class SearchResultList extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        search : state.search
+        search      : state.search
     };
 }
 

@@ -1,5 +1,5 @@
 import Api                        from '../utils/api';
-import { UPDATE_SEARCH_RESULTS, CLEAR_SEARCH }  from './action-types';
+import { UPDATE_SEARCH_RESULTS, CLEAR_SEARCH_RESULTS }  from './action-types';
 
 export function updateSearchResults(searchTerms, tracks) {
     return {
@@ -9,7 +9,7 @@ export function updateSearchResults(searchTerms, tracks) {
 
 export function clearSearchResults() {
     return {
-        type : CLEAR_SEARCH
+        type : CLEAR_SEARCH_RESULTS
     };
 }
 
