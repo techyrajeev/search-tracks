@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 function sendPostRequest(URL, dataToSend, customHeaders = null, sessionToken = null) {
     let headers  = {
-        'Content-Type' : 'application/json',
+        'Content-Type' : 'application/json'
     };
 
     if (customHeaders) {
@@ -17,6 +17,31 @@ function sendPostRequest(URL, dataToSend, customHeaders = null, sessionToken = n
         method      : 'POST',
         headers     : headers,
         body        : JSON.stringify(dataToSend)
+    })
+    .then(checkResponseStatus)
+    .then(parseJSON);
+}
+
+function sendGetRequest(URL, dataToSend, customHeaders = null, sessionToken = null) {
+    let headers  = {
+        'Content-Type' : 'application/json'
+    };
+
+    if (customHeaders) {
+        headers = customHeaders;
+    }
+
+    if (sessionToken) {
+        headers['Authorization'] = sessionToken
+    }
+
+    let queryString = Object.keys(dataToSend).map((key)=> {
+        return `${key}=${dataToSend[key]}`
+    }).join('&');
+
+    return fetch(URL+queryString, {
+        method      : 'GET',
+        headers     : headers
     })
     .then(checkResponseStatus)
     .then(parseJSON);
@@ -37,12 +62,10 @@ function parseJSON(response) {
 }
 
 module.exports =  {
+
     search(searchTerm) {
-        const URL          = 'http://itunes.apple.com/search';
-        const data         = { searchTerm };
-        const sessionToken = localStorage.getItem('sessionToken');
-        return sendPostRequest(URL, data, null, sessionToken);
+        const URL          = 'http://itunes.apple.com/search?';
+        const data         = searchTerm ;
+        return sendGetRequest(URL, data, null, null);
     }
 };
-
-
