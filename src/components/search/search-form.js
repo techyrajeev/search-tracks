@@ -11,10 +11,10 @@ class SearchForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            artistName  : '',
-            tracks  : '',
-            errors    : {},
-            isLoading : false
+            artistName : '',
+            tracks     : '',
+            errors     : {},
+            isLoading  : false
         };
         this.onSearch = this.onSearch.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -23,11 +23,11 @@ class SearchForm extends React.Component {
     validateInput(state) {
         let errors = {};
         if(isEmpty(state.artistName)) {
-             errors.username = 'Artist name is required';
+            errors.username = 'Artist name is required';
         }
 
         if(isEmpty(state.tracks)) {
-             errors.tracks = 'No of tracks is required';
+            errors.tracks = 'No of tracks is required';
         }
 
         return {
@@ -54,8 +54,11 @@ class SearchForm extends React.Component {
 
             this.props.search(this.state)
                 .then((res) => {
-                    if(res == null || res.length == 0) {
-                        this.setState({ errors: { errorDesc : "No result found!" }, isLoading: false });
+                    if (!res || res.length == 0) {
+                        this.setState({
+                            errors    : { errorDesc : "No result found!" },
+                            isLoading : false
+                        });
                     } else {
                         this.props.closeModal();
                     }
@@ -64,7 +67,10 @@ class SearchForm extends React.Component {
                     return err.response.json();
                 })
                 .then((err) => {
-                    this.setState({errors : err, isLoading : false});
+                    this.setState({
+                        errors    : err,
+                        isLoading : false
+                    });
                 });
         }
     }
@@ -74,17 +80,19 @@ class SearchForm extends React.Component {
     }
 
     render() {
-        const { errors, username, password, isLoading } = this.state;
+        const { errors, artistName, tracks, isLoading } = this.state;
 
         return (
             <form onSubmit={this.onSearch} className="login-form">
                 {
-                    errors.errorDesc
+                    errors && errors.errorDesc
                         &&
                     <div className="alert alert-danger">
-                        <a href="#" className="close"
-                            data-dismiss="alert"
-                            aria-label="close"
+                        <a
+                            href         = "#"
+                            className    = "close"
+                            data-dismiss = "alert"
+                            aria-label   = "close"
                         >
                             &times;
                         </a>
@@ -112,10 +120,10 @@ class SearchForm extends React.Component {
                 <div className="form-group text-center">
                     <SpinButton
                         classNames  = "btn btn-primary btn-lg"
-                        buttonText  = {"Searching"}
+                        buttonText  = {"Search"}
                         spinText    = {"Searching ..."}
                         showSpinner = {isLoading}
-                        inputType   = "button"
+                        inputType   = "submit"
                     />
                 </div>
             </form>

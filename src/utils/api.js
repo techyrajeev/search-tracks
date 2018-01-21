@@ -65,7 +65,7 @@ module.exports =  {
 
     search(searchTerm) {
         const URL          = 'http://itunes.apple.com/search?';
-        const data         = searchTerm ;
+        const data         = { term : searchTerm.artistName, limit : searchTerm.tracks };
         return sendGetRequest(URL, data, null, null);
     }
 };

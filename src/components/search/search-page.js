@@ -1,14 +1,15 @@
-import React      from 'react';
-import SearchForm from './search-form';
-import BsModal    from '../common/bs-modal';
+import React            from 'react';
+import SearchForm       from './search-form';
+import BsModal          from '../common/bs-modal';
 import SearchResultList from './search-result-list';
-import SimpleButton from '../common/simple-button';
+import SimpleButton     from '../common/simple-button';
 
 export default class SearchPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showSearchModal : false
+            showSearchModal         : false,
+            isSearchResultAvailable : false
         };
     }
 
@@ -24,14 +25,29 @@ export default class SearchPage extends React.Component {
         })
     }
 
+    closeModal = () => {
+        this.setState({
+            isSearchResultAvailable : true,
+            showSearchModal         : false
+        });
+    }
+
+    resetSearch = () => {
+        this.setState({
+            isSearchResultAvailable : false,
+            showSearchModal         : false
+        });
+
+    }
+
     getSearchModal = () => {
         return (
             <BsModal
-                handleHideModal={this.handleHideSearchModal}
-                title="Search Track"
-                id={"searchModal"}
+                handleHideModal = {this.handleHideSearchModal}
+                title           = "Search Track"
+                id              = {"searchModal"}
             >
-                <SearchForm closeModal={this.props.handleHideSearchModal} />
+                <SearchForm closeModal={this.closeModal} />
             </BsModal>
         );
     }
@@ -39,21 +55,30 @@ export default class SearchPage extends React.Component {
     render() {
         return (
             <div className="container">
-                <div className="row">
-                    <div className="col-md-4 col-md-offset-4">
-                        <SimpleButton
-                            whenClicked={this.handleShowSearchModal}
-                        >
-                            Search
-                        </SimpleButton>
-                    </div>
-                </div>
+                {
+                    !this.state.isSearchResultAvailable ?
+                        (
+                            <div className="row">
+                                <div className="col-md-4 col-md-offset-4">
+                                    <SimpleButton
+                                        whenClicked = {this.handleShowSearchModal}
+                                        classNames  = "btn btn-default"
+                                    >
+                                        Search
+                                    </SimpleButton>
+                                </div>
+                            </div>
+                        )
+                        :(
+                            <div className="row">
+                                <div className="col-md-8 col-md-offset-2">
+                                    <SearchResultList resetSearch={this.props.resetSearch}/>
+                                </div>
+                            </div>
+                        )
+                }
 
-                <div className="row">
-                    <div className="col-md-8 col-md-offset-2">
-                        <SearchResultList />
-                    </div>
-                </div>
+
                 {this.state.showSearchModal ? this.getSearchModal() : null}
             </div>
         );

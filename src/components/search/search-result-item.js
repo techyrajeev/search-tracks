@@ -12,12 +12,12 @@ export default class SearchResultItem extends React.Component {
         return (
             <li className="media">
                 <div className="media-left">
-                    <a href="#">
-                        <img className="media-object" src={track.artworkUrl60} />
-                    </a>
+                    <img className="media-object" src={track.artworkUrl100} />
                 </div>
                 <div className="media-body">
                     <h4 className="media-heading">{track.artistName}</h4>
+                    <p>{track.shortDescription}</p>
+                    <hr/>
                 </div>
             </li>
         );

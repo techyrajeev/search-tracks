@@ -1,13 +1,14 @@
-import React from 'react';
+import React        from 'react';
 import SimpleButton from './simple-button';
 
 export default class BsModal extends React.Component {
+
     constructor(props) {
         super(props);
+
         this.state = {
+
         };
-        this.show = this.show.bind(this);
-        this.hide = this.hide.bind(this);
     }
 
     componentDidMount() {
@@ -24,10 +25,11 @@ export default class BsModal extends React.Component {
         }
 
         return (
-            <button type="button"
-            className="close"
-            data-dismiss="modal"
-            aria-label="Close"
+            <button
+                type         = "button"
+                className    = "close"
+                data-dismiss = "modal"
+                aria-label   = "Close"
             >
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -42,23 +44,27 @@ export default class BsModal extends React.Component {
 
     render() {
         let confirmButton = null;
-        let cancelButton = null;
+        let cancelButton  = null;
 
         if(this.props.confirm) {
             confirmButton = (
-                <SimpleButton whenClicked = {this.handleConfirm}
-                className = "btn-primary"
-                title={this.props.confirm}
-                subTitleClassName="caret"
-                />
+                <SimpleButton
+                    whenClicked       = {this.handleConfirm}
+                    classNames        = "btn-primary"
+                    title             = {this.props.confirm}
+                    subTitleClassName = "caret"
+                >
+                    confirm
+                </SimpleButton>
             );
         }
 
         if(this.props.cancel) {
             cancelButton = (
-                <button type="button"
-                className="btn btn-default pull-left"
-                data-dismiss="modal"
+                <button
+                    type         = "button"
+                    className    = "btn btn-default pull-left"
+                    data-dismiss = "modal"
                 >
                     <span className="glyphicon glyphicon-cancel"></span> {this.props.cancel}
                 </button>
@@ -66,6 +72,7 @@ export default class BsModal extends React.Component {
         }
 
         let disabledDefaultCloseStyles = {};
+
         if(this.props.disableDefaultClose) {
             disabledDefaultCloseStyles = {
                 "data-backdrop":"static",

@@ -11,7 +11,8 @@ const routes = (
     <Provider store={store}>
       <Router history={history}>
           <Route path="/" component={Main}>
-                <Route path="search" component={SearchPage} />
+              <IndexRoute component={SearchPage} />
+              <Route path="search" component={SearchPage} />
           </Route>
       </Router>
     </Provider>
